@@ -1,0 +1,17 @@
+{
+  "name": "sua-uach-conversion",
+  "type": "module",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "https://github.com/51Degrees/sua-uach-conversion.git",
+  "author": "romansertsov <roman.sertsov@postindustria.com>",
+  "license": "MIT",
+  "dependencies": {
+    "@babel/preset-env": "^7.21.4",
+    "babel-jest": "^29.5.0",
+    "jest": "^29.5.0"
+  },
+  "scripts": {
+    "test": "jest"
+  }
+}
