@@ -11,7 +11,10 @@ const convertUACHtoSUA = (headers) => {
     {}
   );
 
-  const matches = headerMap["sec-ch-ua"].match(/"([^"]+)";v="([^"]+)"/g);
+  const matches = headerMap["sec-ch-ua-full-version-list"].match(
+    /"([^"]+)";v="([^"]+)"/g
+  );
+
   const browsers = matches.map((match) => {
     const [, name, version] = match.match(/"([^"]+)";v="([^"]+)"/);
     return {

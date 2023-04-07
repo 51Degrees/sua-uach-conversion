@@ -41,7 +41,7 @@ const convertSUAtoUACH = (SUAObj) => {
     if (typeof module !== "undefined" && module.exports) {
       exports = module.exports = convertSUAtoUACH;
     }
-    exports.convertUACHtoSUA = convertSUAtoUACH;
+    exports.convertSUAtoUACH = convertSUAtoUACH;
   } else {
     // requirejs env (optional)
     if (typeof define === "function" && define.amd) {
