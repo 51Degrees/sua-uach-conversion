@@ -23,7 +23,7 @@ const EXAMPLE_OUTPUT = {
     brand: "Android",
     version: ["12"],
   },
-  mobile: "1",
+  mobile: 1,
   architecture: "arm",
   bitness: "64",
   model: "Pixel 6",
