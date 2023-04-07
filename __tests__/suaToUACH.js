@@ -20,11 +20,11 @@ const OUTPUT_EXAMPLE = {
     '"Not A;Brand";v="99.0.0.0", "Chromium";v="99.0.4844.88", "Google Chrome";v="99.0.4844.88"',
   "Sec-CH-UA-Full-Version-List":
     '"Not A;Brand";v="99.0.0.0", "Chromium";v="99.0.4844.88", "Google Chrome";v="99.0.4844.88"',
-  "Sec-CH-UA-Platform": "Android",
-  "Sec-CH-UA-Platform-Version": "12",
+  "Sec-CH-UA-Platform": '"Android"',
+  "Sec-CH-UA-Platform-Version": '"12"',
   "Sec-CH-UA-Mobile": "?1",
-  "Sec-CH-UA-Arch": "arm",
-  "Sec-CH-UA-Bitness": "64",
+  "Sec-CH-UA-Arch": '"arm"',
+  "Sec-CH-UA-Bitness": '"64"',
 };
 
 describe("SUA Object to UACH", () => {

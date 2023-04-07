@@ -18,19 +18,37 @@ const convertSUAtoUACH = (SUAObj) => {
   }
 
   if (platform) {
-    mappedHeaders["Sec-CH-UA-Platform"] = platform.brand;
-    mappedHeaders["Sec-CH-UA-Platform-Version"] = platform.version.join(".");
+    mappedHeaders["Sec-CH-UA-Platform"] = `"${platform.brand}"`;
+    mappedHeaders["Sec-CH-UA-Platform-Version"] = `"${platform.version.join(
+      "."
+    )}"`;
   }
 
   mappedHeaders["Sec-CH-UA-Mobile"] = mobile ? "?1" : "?0";
 
-  if (architecture) mappedHeaders["Sec-CH-UA-Arch"] = architecture;
+  if (architecture) mappedHeaders["Sec-CH-UA-Arch"] = `"${architecture}"`;
 
-  if (bitness) mappedHeaders["Sec-CH-UA-Bitness"] = bitness;
+  if (bitness) mappedHeaders["Sec-CH-UA-Bitness"] = `"${bitness}"`;
 
-  if (model) mappedHeaders["Sec-CH-UA-Model"] = model;
+  if (model) mappedHeaders["Sec-CH-UA-Model"] = `"${model}"`;
 
   return mappedHeaders;
 };
 
-export default convertSUAtoUACH;
+((window, undefined) => {
+  if (typeof exports !== "undefined") {
+    // nodejs env
+    if (typeof module !== "undefined" && module.exports) {
+      exports = module.exports = convertSUAtoUACH;
+    }
+    exports.convertUACHtoSUA = convertSUAtoUACH;
+  } else {
+    // requirejs env (optional)
+    if (typeof define === "function" && define.amd) {
+      define(() => convertSUAtoUACH);
+    } else if (typeof window !== "undefined") {
+      // browser env
+      window.convertSUAtoUACH = convertSUAtoUACH;
+    }
+  }
+})(typeof window === "object" && window);
