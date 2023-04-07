@@ -1,0 +1,96 @@
+# SUA to UACH Conversion Routines
+
+## Introduction
+
+Structured User Agent or SUA for short has been introduced by IAB in [OpenRTB v.2.6 spec](https://iabtechlab.com/wp-content/uploads/2022/04/OpenRTB-2-6_FINAL.pdf).
+It contains the information passed as part of the User-Agent Client Hint HTTP headers, or that otherwise can be obtained from the NavigatorUAData.
+
+The playground page is available [here](https://51degrees.github.io/sua-uach-conversion). 
+
+## Rationale
+Device detection services s.a. 
+[51Degrees Cloud Service](https://cloud.51degrees.com/api-docs/index.html) or [51Degrees UAParser](https://www.npmjs.com/package/@51degrees/ua-parser-js) 
+expect to receive a UACH header map as input.  Thus one can't simply feed the OpenRTB's `device.sua` object into one of these.  One first needs to convert it into the UACH header map format. 
+This is where `convertSUAtoUACH` routine can be used. 
+
+Vice-versa if you have received the UACH headers on the server as part of the (ad) request and would like to send them further as part of the OpenRTB request as `device.sua` - 
+you first need to convert this header map into SUA JSON object representation.  This justifies the use of the `convertUACHtoSUA` routine. 
+
+## Usage
+
+### Converting SUA to UACH
+
+To convert SUA to UACH HTTP header map representation, use the `convertSUAtoUACH` routine:
+
+```js
+import convertSUAtoUACH from "./src/convertSUAtoUACH.js";
+
+const SUAExample = {
+  browsers: [
+    { 
+      brand:"Not A;Brand",
+      version:["99","0","0","0"]
+    },
+    {
+      brand: "Chromium", 
+      version: ["99","0","4844","88"],
+    },
+    {
+      brand: "Google Chrome",
+      version: ["99","0","4844","88"]
+    },
+  ],
+  platform: {
+    brand: "Android",
+    version: ["12"],
+  },
+  mobile: 1,
+  architecture: "arm",
+  bitness: "64",
+  model: "Pixel 6",
+  source: 2
+}
+
+let uach = convertSUAtoUACH(SUAExample)
+console.log(uach)
+```
+
+and you would run this example like:
+```sh
+node example_sua_uach.js
+```
+
+### Converting UACH to SUA
+
+Here is an example of using the reverse `convertUACHtoSUA` routine: 
+
+```js
+import convertUACHtoSUA from "./src/convertUACHtoSUA.js";
+const uach = {
+  'sec-ch-ua-arch': '"x86"',
+  'sec-ch-ua-bitness': '"64"',
+  'sec-ch-ua-full-version-list': '"Google Chrome";v="111.0.5563.146", "Not(A:Brand";v="8.0.0.0", "Chromium";v="111.0.5563.146"',
+  'sec-ch-ua-mobile': '?0',
+  'sec-ch-ua-model':'',
+  'sec-ch-ua-platform': '"macOS"',
+  'sec-ch-ua-platform-version': '"13.3.0"'
+}
+
+let sua = convertUACHtoSUA(uach)
+console.log(sua)
+```
+
+you can run this example like: 
+```sh
+node example_uach_sua.js
+```
+
+## Tests
+
+You can run tests by executing: 
+```sh
+yarn
+yarn test
+```
+
+Found a bug? Please contribute either via pull request or an issue.  
