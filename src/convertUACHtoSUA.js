@@ -25,12 +25,14 @@ const convertUACHtoSUA = (headers) => {
 
   const platform = {
     brand: headerMap["sec-ch-ua-platform"],
-    version: headerMap["sec-ch-ua-platform-version"].split("."),
+    version: headerMap["sec-ch-ua-platform-version"]
+      .split(".")
+      .map((v) => v.replace(/"/g, "")),
   };
 
   const mobile = headerMap["sec-ch-ua-mobile"] === "?1" ? 1 : 0;
-  const architecture = headerMap["sec-ch-ua-arch"];
-  const bitness = headerMap["sec-ch-ua-bitness"];
+  const architecture = headerMap["sec-ch-ua-arch"].replace(/"/g, "");
+  const bitness = headerMap["sec-ch-ua-bitness"].replace(/"/g, "");
   const model = headerMap["sec-ch-ua-model"];
 
   return {
