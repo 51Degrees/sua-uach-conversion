@@ -28,7 +28,7 @@ const convertUACHtoSUA = (headers) => {
     version: headerMap["sec-ch-ua-platform-version"].split("."),
   };
 
-  const mobile = headerMap["sec-ch-ua-mobile"] === "?1" ? "1" : "0";
+  const mobile = headerMap["sec-ch-ua-mobile"] === "?1" ? 1 : 0;
   const architecture = headerMap["sec-ch-ua-arch"];
   const bitness = headerMap["sec-ch-ua-bitness"];
   const model = headerMap["sec-ch-ua-model"];
