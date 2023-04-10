@@ -90,7 +90,7 @@ const drawSelect = (node, values) => {
 const drawSelectOption = (container, value, index) => {
   const id = container.dataset.type;
   const option = document.createElement("option");
-  option.textContent = `Example ${index}`;
+  option.textContent = `Example ${index + 1}`;
   option.value = JSON.stringify(value);
   if (index === 0) {
     option.selected = true;
