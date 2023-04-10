@@ -98,8 +98,11 @@ const drawSelectOption = (container, value, index) => {
   }
   container.appendChild(option);
 };
+
 window.onload = () => {
   drawSelects();
+  bindClipboardListeners();
+  bindSelectObjectEditListener();
   initSelect();
 };
 
@@ -134,3 +137,38 @@ const convertValue = (value, id) => {
   if (id === "sua-to-uach") return convertSUAtoUACH(value);
   else return convertUACHtoSUA(value);
 };
+
+const copyContainerContent = (event) => {
+  const container = event.target;
+
+  const targetID = container.dataset.target;
+  const targetDataContainer = document.getElementById(targetID);
+  if (!targetDataContainer)
+    throw new Error(`Container width ID ${targetID} does not exist`);
+  navigator.clipboard.writeText(targetDataContainer.textContent).then(() => {
+    alert("Copied to clipboard");
+  });
+};
+
+const bindClipboardListeners = () => {
+  const buttons = Array.from(document.getElementsByClassName("copy-button"));
+  buttons.forEach((button) => {
+    button.addEventListener("click", copyContainerContent);
+  });
+};
+
+const bindSelectObjectEditListener = () => {
+  const editables = Array.from(
+    document.getElementsByClassName("selected-editable")
+  );
+  editables.forEach((editable) => {
+    editable.addEventListener("input", handleValueChange);
+  });
+};
+
+function handleValueChange(event) {
+  const id = event.target.dataset.type;
+  const value = JSON.parse(event.target.textContent);
+  console.clear();
+  drawConversionResults(value, id);
+}

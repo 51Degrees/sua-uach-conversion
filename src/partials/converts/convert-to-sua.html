@@ -1,25 +1,38 @@
 <div class="container">
-    <h2>UACH to SUA Conversion Playground</h2>
-    <span>Select UACH Header Object</span>
-    <br><br>
-    <div class="custom-select">
-        <select class="example-select" id="uach-to-sua-example-selector" data-type="uach-to-sua">
-            <option value="{some: 'some'}" selected> some</option>
-        </select>
-    </div>
-    <br><br>
-    <div class="inner">
-        <div>
-            <span>Header Map</span>
-            <pre>
-            <code id="uach-to-sua-selected-object"></code>
-          </pre>
+  <h2>UACH to SUA Conversion Playground</h2>
+  <span>Select UACH Header Object</span>
+  <br /><br />
+  <div class="custom-select">
+    <select
+      class="example-select"
+      id="uach-to-sua-example-selector"
+      data-type="uach-to-sua"
+    >
+      <option value="{some: 'some'}" selected>some</option>
+    </select>
+  </div>
+  <br /><br />
+  <div class="inner">
+    <div>
+      <div class="header">
+        <span>Header Map</span>
+        <div class="copy-button" data-target="uach-to-sua-selected-object">
+          <i class="icon download-icon"></i>Copy to clipboard
         </div>
-        <div>
-            <span>SUA Object</span>
-            <pre>
-         <code id="uach-to-sua-converted-result"></code>
-      </pre>
-        </div>
+      </div>
+      <pre><code class="selected-editable"
+                 contenteditable="true"
+                 data-type="uach-to-sua"
+                 id="uach-to-sua-selected-object"></code></pre>
     </div>
+    <div>
+      <div class="header">
+        <span>SUA Object</span>
+        <div class="copy-button" data-target="uach-to-sua-converted-result">
+          <i class="icon download-icon"></i>Copy to clipboard
+        </div>
+      </div>
+      <pre><code id="uach-to-sua-converted-result"></code></pre>
+    </div>
+  </div>
 </div>
