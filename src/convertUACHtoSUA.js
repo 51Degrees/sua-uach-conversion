@@ -3,6 +3,8 @@ const convertUACHtoSUA = (headers) => {
     throw new Error("Headers param cannot be empty.");
   if (Object.keys(headers).length === 0) return {};
 
+  const SUAObject = {};
+
   const headerMap = Object.entries(headers).reduce(
     (accumulator, [key, value]) => {
       accumulator[key.toLowerCase()] = value;
@@ -15,7 +17,7 @@ const convertUACHtoSUA = (headers) => {
     /"([^"]+)";v="([^"]+)"/g
   );
 
-  const browsers = matches.map((match) => {
+  SUAObject["browsers"] = matches.map((match) => {
     const [, name, version] = match.match(/"([^"]+)";v="([^"]+)"/);
     return {
       brand: name,
@@ -23,26 +25,22 @@ const convertUACHtoSUA = (headers) => {
     };
   });
 
-  const platform = {
-    brand: headerMap["sec-ch-ua-platform"],
+  SUAObject["platform"] = {
+    brand: headerMap["sec-ch-ua-platform"].replace(/"/g, ""),
     version: headerMap["sec-ch-ua-platform-version"]
       .split(".")
       .map((v) => v.replace(/"/g, "")),
   };
 
-  const mobile = headerMap["sec-ch-ua-mobile"] === "?1" ? 1 : 0;
-  const architecture = headerMap["sec-ch-ua-arch"].replace(/"/g, "");
-  const bitness = headerMap["sec-ch-ua-bitness"].replace(/"/g, "");
-  const model = headerMap["sec-ch-ua-model"];
+  SUAObject["mobile"] = headerMap["sec-ch-ua-mobile"] === "?1" ? 1 : 0;
+  SUAObject["architecture"] = headerMap["sec-ch-ua-arch"].replace(/"/g, "");
+  SUAObject["bitness"] = headerMap["sec-ch-ua-bitness"].replace(/"/g, "");
 
-  return {
-    browsers,
-    platform,
-    mobile,
-    architecture,
-    bitness,
-    model,
-  };
+  if (headerMap["sec-ch-ua-model"]) {
+    SUAObject["model"] = headerMap["sec-ch-ua-model"];
+  }
+
+  return SUAObject;
 };
 
 ((window, undefined) => {
