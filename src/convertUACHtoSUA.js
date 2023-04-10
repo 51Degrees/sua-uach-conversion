@@ -1,4 +1,6 @@
 const convertUACHtoSUA = (headers) => {
+  if (typeof headers != "object")
+    throw new Error("Header must be an valid header map.");
   if (headers === null || headers === undefined)
     throw new Error("Headers param cannot be empty.");
   if (Object.keys(headers).length === 0) return {};
@@ -25,38 +27,25 @@ const convertUACHtoSUA = (headers) => {
     };
   });
 
-  SUAObject["platform"] = {
-    brand: headerMap["sec-ch-ua-platform"].replace(/"/g, ""),
-    version: headerMap["sec-ch-ua-platform-version"]
-      .split(".")
-      .map((v) => v.replace(/"/g, "")),
-  };
+  if (headerMap["sec-ch-ua-platform"])
+    SUAObject["platform"] = {
+      brand: headerMap["sec-ch-ua-platform"].replace(/"/g, ""),
+      version: headerMap["sec-ch-ua-platform-version"]
+        .split(".")
+        .map((v) => v.replace(/"/g, "")),
+    };
 
-  SUAObject["mobile"] = headerMap["sec-ch-ua-mobile"] === "?1" ? 1 : 0;
-  SUAObject["architecture"] = headerMap["sec-ch-ua-arch"].replace(/"/g, "");
-  SUAObject["bitness"] = headerMap["sec-ch-ua-bitness"].replace(/"/g, "");
+  if (headerMap["sec-ch-ua-mobile"])
+    SUAObject["mobile"] = headerMap["sec-ch-ua-mobile"] === "?1" ? 1 : 0;
+  if (headerMap["sec-ch-ua-arch"])
+    SUAObject["architecture"] = headerMap["sec-ch-ua-arch"].replace(/"/g, "");
+  if (headerMap["sec-ch-ua-bitness"])
+    SUAObject["bitness"] = headerMap["sec-ch-ua-bitness"].replace(/"/g, "");
 
-  if (headerMap["sec-ch-ua-model"]) {
+  if (headerMap["sec-ch-ua-model"])
     SUAObject["model"] = headerMap["sec-ch-ua-model"];
-  }
 
   return SUAObject;
 };
 
-((window, undefined) => {
-  if (typeof exports !== "undefined") {
-    // nodejs env
-    if (typeof module !== "undefined" && module.exports) {
-      exports = module.exports = convertUACHtoSUA;
-    }
-    exports.convertUACHtoSUA = convertUACHtoSUA;
-  } else {
-    // requirejs env (optional)
-    if (typeof define === "function" && define.amd) {
-      define(() => convertUACHtoSUA);
-    } else if (typeof window !== "undefined") {
-      // browser env
-      window.convertUACHtoSUA = convertUACHtoSUA;
-    }
-  }
-})(typeof window === "object" && window);
+module.exports = convertUACHtoSUA;

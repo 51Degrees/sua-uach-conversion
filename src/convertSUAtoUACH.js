@@ -1,4 +1,6 @@
 const convertSUAtoUACH = (SUAObj) => {
+  if (typeof SUAObj != "object")
+    throw new Error("Header must be an valid object.");
   if (SUAObj === null || SUAObj === undefined)
     throw new Error("Headers param cannot be empty.");
   if (Object.keys(SUAObj).length === 0) return {};
@@ -35,20 +37,4 @@ const convertSUAtoUACH = (SUAObj) => {
   return mappedHeaders;
 };
 
-((window, undefined) => {
-  if (typeof exports !== "undefined") {
-    // nodejs env
-    if (typeof module !== "undefined" && module.exports) {
-      exports = module.exports = convertSUAtoUACH;
-    }
-    exports.convertSUAtoUACH = convertSUAtoUACH;
-  } else {
-    // requirejs env (optional)
-    if (typeof define === "function" && define.amd) {
-      define(() => convertSUAtoUACH);
-    } else if (typeof window !== "undefined") {
-      // browser env
-      window.convertSUAtoUACH = convertSUAtoUACH;
-    }
-  }
-})(typeof window === "object" && window);
+module.exports = convertSUAtoUACH;
