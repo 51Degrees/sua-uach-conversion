@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="icon" type="image/x-icon" href="data:image/x-icon;base64,AAABAAEAEBAAAAAAIABoBAAAFgAAACgAAAAQAAAAIAAAAAEAIAAAAAAAQAQAAAAAAAAAAAAAAAAAAAAAAAAlJSX/JSUl/yUlJf8lJSX/JSUl/yUlJf8lJSX/JSUl/yUlJf8lJSX/JSUl/yUlJf8lJSX/JSUl/yUlJf8lJSX/JSUl/yUlJf8lJSX/JSUl/yUlJf8lJSX/JSUl/yUlJf8lJSX/JSUl/yUlJf8yMC//Pzs5/01FQv8sKir/JSUl/yUlJf8lJSX/JSUl/yUlJf8lJSX/JSUl/yUlJf8lJSX/JSUl/yUlJf8lJSX/JSUl/yUlJf8lJSX/JSUl/yUlJf8lJSX/JSUl/yUlJf8lJSX/JSUl/yUlJf8lJSX/JSUl/yUlJf8lJSX/JSUl/yUlJf8lJSX/JSUl/yUlJf8lJSX/JSUl/yUlJf8lJSX/JSUl/yUlJf8lJSX/JSUl/yUlJf8lJSX/JSUl/yUlJf8lJSX/JSUl/yUlJf8lJSX/JSUl/yUlJf8lJSX/ISZv/x4nuf8dJ87/Hie5/yMlRf8lJSX/HSfO/yEmev//////8fHx/5+fn/8zMzP/JSUl/yUlJf8lJSX/JSUl/yMlRf8iJmX/IyVP/x0nxP8fJpr/JSUl/x0nzv8hJnr/XFxc/3d3d//y8vL/oKCg/yUlJf8lJSX/JSUl/yUlJf8lJSX/IyVP/yImZP8eJ8P/Hyaa/yUlJf8dJ87/ISZ6/yUlJf8lJSX/oKCg//Hx8f8lJSX/JSUl/yUlJf8lJSX/IyVP/x0nzv8fJ6T/Hyaa/yQlMP8lJSX/HSfO/yEmev8lJSX/JSUl/6CgoP//////JSUl/yUlJf8lJSX/JSUl/yMlT/8dJ87/IyVP/yMlT/8kJTr/IyVP/x0nzv8hJnr/W1tb/3Z2dv/x8fH/rq6u/yUlJf8lJSX/JSUl/yUlJf8jJU//HSfO/x0nzv8dJ87/ISZ//x8mmv8dJ87/ISZ6////////////rq6u/zMzM/8lJSX/JSUl/yUlJf8lJSX/JSUl/yUlJf8lJSX/JSUl/yUlJf8lJSX/JSUl/yUlJf8lJSX/JSUl/yUlJf8lJSX/JSUl/yUlJf8lJSX/JSUl/yUlJf8lJSX/JSUl/yUlJf8lJSX/JSUl/yUlJf8lJSX/JSUl/yUlJf8lJSX/JSUl/yUlJf8lJSX/JSUl/zIwL/8lJSX/JSUl/yUlJf8lJSX/JSUl/yUlJf8lJSX/JSUl/yUlJf8lJSX/JSUl/yUlJf8lJSX/JSUl/yUlJf8sKir/Pzs5/z87Of8yMC//JSUl/yUlJf8lJSX/JSUl/yUlJf8lJSX/JSUl/yUlJf8lJSX/JSUl/yUlJf8lJSX/JSUl/yUlJf8lJSX/JSUl/yUlJf8lJSX/JSUl/yUlJf8lJSX/JSUl/yUlJf8lJSX/JSUl/yUlJf8lJSX/AAD//wAA//8AAP//AAD//wAA//8AAP//AAD//wAA//8AAP//AAD//wAA//8AAP//AAD//wAA//8AAP//AAD//w==" />
 
-    <title>51Degrees UAParser</title>
+    <title>SUA to UACH Conversion Playground</title>
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -16,8 +16,8 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
     />
-    <script type="module" crossorigin src="/sua-uach-conversion/assets/index-9cf8a7ac.js"></script>
-    <link rel="stylesheet" href="/sua-uach-conversion/assets/index-8b410977.css">
+    <script type="module" crossorigin src="/sua-uach-conversion/assets/index-7caad0ca.js"></script>
+    <link rel="stylesheet" href="/sua-uach-conversion/assets/index-0883c0cd.css">
   </head>
   <body>
     <main>
@@ -28,54 +28,82 @@
       </header>
       <section class="playground">
         <div class="container">
-            <h2>SUA to UACH Conversion Playground</h2>
-            <span>Select SUA Example</span>
-            <br><br>
-            <div class="custom-select">
-                <select class="example-select" id="example-selector" data-type="sua-to-uach">
-                    <option value="{some: 'some'}" selected> some</option>
-                </select>
-            </div>
-            <br><br>
-            <div class="inner">
-                <div>
-                    <span>SUA Object</span>
-                    <pre>
-                    <code id="sua-to-uach-selected-object"></code>
-                  </pre>
+          <h2>SUA to UACH Conversion Playground</h2>
+          <span>Select SUA Example</span>
+          <br /><br />
+          <div class="custom-select">
+            <select
+              class="example-select"
+              id="example-selector"
+              data-type="sua-to-uach"
+            >
+              <option value="{some: 'some'}" selected>some</option>
+            </select>
+          </div>
+          <br /><br />
+          <div class="inner">
+            <div>
+              <div class="header">
+                <span>SUA Object</span>
+                <div class="copy-button" data-target="sua-to-uach-selected-object">
+                  <i class="icon download-icon"></i>Copy to clipboard
                 </div>
-                <div>
-                    <span>UACH Header Map</span>
-                    <pre>
-                 <code id="sua-to-uach-converted-result"></code>
-              </pre>
-                </div>
+              </div>
+              <pre><code class="selected-editable"
+                         contenteditable="true"
+                         data-type="sua-to-uach"
+                         id="sua-to-uach-selected-object"></code></pre>
             </div>
-        </div>  <div class="container">
-            <h2>UACH to SUA Conversion Playground</h2>
-            <span>Select UACH Header Object</span>
-            <br><br>
-            <div class="custom-select">
-                <select class="example-select" id="uach-to-sua-example-selector" data-type="uach-to-sua">
-                    <option value="{some: 'some'}" selected> some</option>
-                </select>
-            </div>
-            <br><br>
-            <div class="inner">
-                <div>
-                    <span>Header Map</span>
-                    <pre>
-                    <code id="uach-to-sua-selected-object"></code>
-                  </pre>
+            <div>
+              <div class="header">
+                <span>UACH Header Map</span>
+                <div class="copy-button" data-target="sua-to-uach-converted-result">
+                  <i class="icon download-icon"></i>Copy to clipboard
                 </div>
-                <div>
-                    <span>SUA Object</span>
-                    <pre>
-                 <code id="uach-to-sua-converted-result"></code>
-              </pre>
-                </div>
+              </div>
+              <pre><code id="sua-to-uach-converted-result"></code></pre>
             </div>
-        </div></section>
+          </div>
+        </div>
+        <div class="container">
+          <h2>UACH to SUA Conversion Playground</h2>
+          <span>Select UACH Header Object</span>
+          <br /><br />
+          <div class="custom-select">
+            <select
+              class="example-select"
+              id="uach-to-sua-example-selector"
+              data-type="uach-to-sua"
+            >
+              <option value="{some: 'some'}" selected>some</option>
+            </select>
+          </div>
+          <br /><br />
+          <div class="inner">
+            <div>
+              <div class="header">
+                <span>Header Map</span>
+                <div class="copy-button" data-target="uach-to-sua-selected-object">
+                  <i class="icon download-icon"></i>Copy to clipboard
+                </div>
+              </div>
+              <pre><code class="selected-editable"
+                         contenteditable="true"
+                         data-type="uach-to-sua"
+                         id="uach-to-sua-selected-object"></code></pre>
+            </div>
+            <div>
+              <div class="header">
+                <span>SUA Object</span>
+                <div class="copy-button" data-target="uach-to-sua-converted-result">
+                  <i class="icon download-icon"></i>Copy to clipboard
+                </div>
+              </div>
+              <pre><code id="uach-to-sua-converted-result"></code></pre>
+            </div>
+          </div>
+        </div>
+      </section>
       <footer>
         <div class="container">
           <img src="/sua-uach-conversion/assets/logo-e353edd7.svg" alt="51Deg Logo" />
