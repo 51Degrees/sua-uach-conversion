@@ -14,18 +14,19 @@ const convertUACHtoSUA = (headers) => {
     },
     {}
   );
-
-  const matches = headerMap["sec-ch-ua-full-version-list"].match(
-    /"([^"]+)";v="([^"]+)"/g
-  );
-
-  SUAObject["browsers"] = matches.map((match) => {
-    const [, name, version] = match.match(/"([^"]+)";v="([^"]+)"/);
-    return {
-      brand: name,
-      version: version.split("."),
-    };
-  });
+  if (headerMap["sec-ch-ua-full-version-list"]) {
+    const matches = headerMap["sec-ch-ua-full-version-list"].match(
+      /"([^"]+)";v="([^"]+)"/g
+    );
+    if (matches)
+      SUAObject["browsers"] = matches.map((match) => {
+        const [, name, version] = match.match(/"([^"]+)";v="([^"]+)"/);
+        return {
+          brand: name,
+          version: version.split("."),
+        };
+      });
+  }
 
   if (headerMap["sec-ch-ua-platform"])
     SUAObject["platform"] = {

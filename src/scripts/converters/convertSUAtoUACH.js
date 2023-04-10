@@ -1,4 +1,6 @@
 const convertSUAtoUACH = (SUAObj) => {
+  if (typeof SUAObj != "object")
+    throw new Error("Parameter must be an valid object.");
   if (SUAObj === null || SUAObj === undefined)
     throw new Error("Headers param cannot be empty.");
   if (Object.keys(SUAObj).length === 0) return {};
