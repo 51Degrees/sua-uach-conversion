@@ -10,26 +10,26 @@ const EXAMPLE_HEADERS = [
     "Sec-CH-UA-Full-Version-List":
       '"Not A;Brand";v="99.0.0.0", "Chromium";v="99.0.4844.88", "Google Chrome";v="99.0.4844.88"',
     "Sec-CH-UA-Platform": "Android",
-    "Sec-CH-UA-Platform-Version": "12",
+    "Sec-CH-UA-Platform-Version": `"12"`,
     "Sec-CH-UA-Mobile": "?1",
-    "Sec-CH-UA-Arch": "arm",
-    "Sec-CH-UA-Bitness": "64",
-    "Sec-CH-UA-Model": "Pixel 6",
+    "Sec-CH-UA-Arch": `"arm"`,
+    "Sec-CH-UA-Bitness": `"64"`,
+    "Sec-CH-UA-Model": `"Pixel 6"`,
   },
   {
     "Sec-CH-UA":
       '"Not A;Brand";v="99.0.0.0", "Chromium";v="99.0.4844.88", "Google Chrome";v="99.0.4844.88"',
     "Sec-CH-UA-Full-Version-List":
       '"Not A;Brand";v="99.0.0.0", "Chromium";v="99.0.4844.88", "Google Chrome";v="99.0.4844.88"',
-    "Sec-CH-UA-Arch": "arm",
-    "Sec-CH-UA-Bitness": "64",
-    "Sec-CH-UA-Model": "Pixel 6",
+    "Sec-CH-UA-Arch": `"arm"`,
+    "Sec-CH-UA-Bitness": `"64"`,
+    "Sec-CH-UA-Model": `"Pixel 6"`,
   },
   {
     "Sec-CH-UA-Platform": "Android",
-    "Sec-CH-UA-Platform-Version": "12",
+    "Sec-CH-UA-Platform-Version": `"12"`,
     "Sec-CH-UA-Mobile": "?1",
-    "Sec-CH-UA-Arch": "arm",
+    "Sec-CH-UA-Arch": `"arm"`,
   },
 ];
 const EXAMPLE_SUA = [
