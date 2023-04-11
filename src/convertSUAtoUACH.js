@@ -1,6 +1,6 @@
 const convertSUAtoUACH = (SUAObj) => {
   if (typeof SUAObj != "object")
-    throw new Error("Header must be an valid object.");
+    throw new Error("Parameter must be an valid object.");
   if (SUAObj === null || SUAObj === undefined)
     throw new Error("Headers param cannot be empty.");
   if (Object.keys(SUAObj).length === 0) return {};
@@ -21,9 +21,10 @@ const convertSUAtoUACH = (SUAObj) => {
 
   if (platform) {
     mappedHeaders["Sec-CH-UA-Platform"] = `"${platform.brand}"`;
-    mappedHeaders["Sec-CH-UA-Platform-Version"] = `"${platform.version.join(
-      "."
-    )}"`;
+    if (platform.version.length > 0)
+      mappedHeaders["Sec-CH-UA-Platform-Version"] = `"${platform.version.join(
+        "."
+      )}"`;
   }
 
   mappedHeaders["Sec-CH-UA-Mobile"] = mobile ? "?1" : "?0";

@@ -1,6 +1,6 @@
 import convertUACHtoSUA from "../src/convertUACHtoSUA.js";
 
-const EXAMPLE_INPUT = {
+const BASIC_EXAMPLE = {
   "Sec-CH-UA":
     '"Not A;Brand";v="99.0.0.0", "Chromium";v="99.0.4844.88", "Google Chrome";v="99.0.4844.88"',
   "Sec-CH-UA-Full-Version-List":
@@ -13,7 +13,7 @@ const EXAMPLE_INPUT = {
   "Sec-CH-UA-Model": "Pixel 6",
 };
 
-const EXAMPLE_OUTPUT = {
+const BASIC_OUTPUT = {
   browsers: [
     { brand: "Not A;Brand", version: ["99", "0", "0", "0"] },
     { brand: "Chromium", version: ["99", "0", "4844", "88"] },
@@ -29,15 +29,70 @@ const EXAMPLE_OUTPUT = {
   model: "Pixel 6",
 };
 
+const LOW_ENTROPY_EXAMPLE = {
+  "sec-ch-ua": `"Chromium";v="112", "Google Chrome";v="112", "Not A;Brand";v="99"`,
+  "sec-ch-ua-mobile": `?0`,
+  "sec-ch-ua-platform": "macOS",
+};
+
+const LOW_ENTROPY_OUTPUT = {
+  browsers: [
+    { brand: "Chromium", version: ["112"] },
+    { brand: "Google Chrome", version: ["112"] },
+    { brand: "Not A;Brand", version: ["99"] },
+  ],
+  platform: {
+    brand: "macOS",
+    version: [],
+  },
+  mobile: 0,
+};
+
+const HIGH_ENTROPY_EXAMPLE = {
+  "sec-ch-ua": `"Chromium";v="112", "Google Chrome";v="112", "Not A;Brand";v="99"`,
+  "sec-ch-ua-arch": "x86",
+  "sec-ch-ua-bitness": "64",
+  "sec-ch-ua-full-version-list": `"Chromium";v="112.0.5615.49", "Google Chrome";v="112.0.5615.49", "Not A;Brand";v="99.0.0.0"`,
+  "sec-ch-ua-mobile": "?0",
+  "sec-ch-ua-model": "",
+  "sec-ch-ua-platform": "macOS",
+  "sec-ch-ua-platform-version": "13.3.1",
+};
+
+const HIGH_ENTROPY_OUTPUT = {
+  browsers: [
+    { brand: "Chromium", version: ["112", "0", "5615", "49"] },
+    { brand: "Google Chrome", version: ["112", "0", "5615", "49"] },
+    { brand: "Not A;Brand", version: ["99", "0", "0", "0"] },
+  ],
+  platform: {
+    brand: "macOS",
+    version: ["13", "3", "1"],
+  },
+  mobile: 0,
+  architecture: "x86",
+  bitness: "64",
+};
+
 describe("UACH Object to SUA", () => {
   test("Happy path", () => {
-    const result = convertUACHtoSUA(EXAMPLE_INPUT);
+    const result = convertUACHtoSUA(BASIC_EXAMPLE);
     expect(result).not.toBeNull();
-    expect(result).toEqual(EXAMPLE_OUTPUT);
+    expect(result).toEqual(BASIC_OUTPUT);
+  });
+  test("Low entropy", () => {
+    const result = convertUACHtoSUA(LOW_ENTROPY_EXAMPLE);
+    expect(result).not.toBeNull();
+    expect(result).toEqual(LOW_ENTROPY_OUTPUT);
+  });
+  test("High entropy", () => {
+    const result = convertUACHtoSUA(HIGH_ENTROPY_EXAMPLE);
+    expect(result).not.toBeNull();
+    expect(result).toEqual(HIGH_ENTROPY_OUTPUT);
   });
   test("NULL check", () => {
     expect(convertUACHtoSUA).toThrowError(
-      new Error("Headers param cannot be empty.")
+      new Error("Header must be an valid header map.")
     );
   });
 });
