@@ -60,14 +60,24 @@ const EXAMPLE_SUA = [
   },
   {
     browsers: [
-      { brand: "Not A;Brand", version: ["99", "0", "0", "0"] },
-      { brand: "Chromium", version: ["99", "0", "4844", "88"] },
-      { brand: "Google Chrome", version: ["99", "0", "4844", "88"] },
+      {
+        brand: "Chromium",
+        version: ["112"],
+      },
+      {
+        brand: "Google Chrome",
+        version: ["112"],
+      },
+      {
+        brand: "Not:A-Brand",
+        version: ["99"],
+      },
     ],
-    mobile: "0",
     platform: {
       brand: "macOS",
+      version: [],
     },
+    mobile: 0,
   },
 ];
 
