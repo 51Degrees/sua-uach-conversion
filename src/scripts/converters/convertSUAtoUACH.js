@@ -21,9 +21,10 @@ const convertSUAtoUACH = (SUAObj) => {
 
   if (platform) {
     mappedHeaders["Sec-CH-UA-Platform"] = `"${platform.brand}"`;
-    mappedHeaders["Sec-CH-UA-Platform-Version"] = `"${platform.version.join(
-      "."
-    )}"`;
+    if (platform.version.length > 0)
+      mappedHeaders["Sec-CH-UA-Platform-Version"] = `"${platform.version.join(
+        "."
+      )}"`;
   }
 
   mappedHeaders["Sec-CH-UA-Mobile"] = mobile ? "?1" : "?0";
