@@ -26,10 +26,10 @@ const EXAMPLE_HEADERS = [
     "Sec-CH-UA-Model": `"Pixel 6"`,
   },
   {
-    "Sec-CH-UA-Platform": `"Android"`,
-    "Sec-CH-UA-Platform-Version": `"12"`,
-    "Sec-CH-UA-Mobile": "?1",
-    "Sec-CH-UA-Arch": `"arm"`,
+    "sec-ch-ua":
+      '"Chromium";v="112", "Google Chrome";v="112", "Not:A-Brand";v="99"',
+    "sec-ch-ua-mobile": "?0",
+    "sec-ch-ua-platform": '"macOS"',
   },
 ];
 const EXAMPLE_SUA = [
@@ -64,9 +64,10 @@ const EXAMPLE_SUA = [
       { brand: "Chromium", version: ["99", "0", "4844", "88"] },
       { brand: "Google Chrome", version: ["99", "0", "4844", "88"] },
     ],
-    mobile: "1",
-    architecture: "arm",
-    bitness: "64",
+    mobile: "0",
+    platform: {
+      brand: "macOS",
+    },
   },
 ];
 
