@@ -50,7 +50,7 @@ const convertUACHtoSUA = (headers) => {
     SUAObject["bitness"] = headerMap["sec-ch-ua-bitness"].replace(/"/g, "");
 
   if (headerMap["sec-ch-ua-model"])
-    SUAObject["model"] = headerMap["sec-ch-ua-model"];
+    SUAObject["model"] = headerMap["sec-ch-ua-model"].replace(/"/g, "");
 
   return SUAObject;
 };
