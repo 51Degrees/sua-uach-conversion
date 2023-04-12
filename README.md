@@ -8,12 +8,12 @@ It contains the information passed as part of the User-Agent Client Hint HTTP he
 The playground page is available [here](https://51degrees.github.io/sua-uach-conversion). 
 
 ## Rationale
-Device detection services s.a. 
+Device detection services such as the 
 [51Degrees Cloud Service](https://cloud.51degrees.com/api-docs/index.html) or [51Degrees UAParser](https://www.npmjs.com/package/@51degrees/ua-parser-js) 
 expect to receive a UA-CH header map as input.  Thus one can't simply feed the OpenRTB's `device.sua` object into one of these.  One first needs to convert it into the UA-CH header map format. 
 This is where `convertSUAtoUACH` routine can be used. 
 
-Vice-versa if you have received the UA-CH headers on the server as part of the (ad) request and would like to send them further as part of the OpenRTB request as `device.sua` - 
+Vice-versa, if you have received the UA-CH headers on the server as part of the (ad) request and would like to send them further as part of the OpenRTB request as `device.sua`, 
 you first need to convert this header map into SUA JSON object representation.  This justifies the use of the `convertUACHtoSUA` routine. 
 
 ## Usage
