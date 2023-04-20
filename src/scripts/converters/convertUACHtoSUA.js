@@ -9,7 +9,7 @@ const convertUACHtoSUA = (headers) => {
 
   const headerMap = Object.entries(headers).reduce(
     (accumulator, [key, value]) => {
-      accumulator[key.toLowerCase()] = value;
+      accumulator[key.toLowerCase().trim()] = value;
       return accumulator;
     },
     {}

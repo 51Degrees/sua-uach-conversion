@@ -27,7 +27,7 @@ const EXAMPLE_HEADERS = [
   },
   {
     "sec-ch-ua":
-      '"Chromium";v="112", "Google Chrome";v="112", "Not:A-Brand";v="99"',
+      '"Chromium";v="112", "Google Chrome";v="112", "Not A;Brand";v="99"',
     "sec-ch-ua-mobile": "?0",
     "sec-ch-ua-platform": '"macOS"',
   },
@@ -81,6 +81,11 @@ const EXAMPLE_SUA = [
   },
 ];
 
+const EXAMPLE_TYPE_JSON = "json";
+const EXAMPLE_TYPE_PLAIN = "plain";
+
+let current_type = EXAMPLE_TYPE_JSON;
+
 const drawSelects = () => {
   const selects = Array.from(document.getElementsByClassName("example-select"));
   selects.forEach((select) => {
@@ -113,7 +118,7 @@ const drawSelectOption = (container, value, index) => {
 window.onload = () => {
   drawSelects();
   bindClipboardListeners();
-  bindSelectObjectEditListener();
+  bindConvertButtonClickListener();
   initSelect();
 };
 
@@ -125,8 +130,29 @@ const selectObjectForConversion = (event, id) => {
 const drawConversionResults = (value, id) => {
   const conversionResult = convertValue(value, id);
 
-  const formattedSelectedValue = JSON.stringify(value, null, "  ");
-  const formattedResultValue = JSON.stringify(conversionResult, null, "  ");
+  let some = [];
+  let formattedSelectedValue,
+    formattedResultValue = "";
+
+  if (id === "sua-to-uach") {
+    for (const [k, v] of Object.entries(conversionResult)) {
+      some.push(`${k.toLowerCase()}: ${v}`);
+    }
+    formattedSelectedValue = JSON.stringify(value, null, "  ");
+    formattedResultValue =
+      current_type === EXAMPLE_TYPE_JSON
+        ? JSON.stringify(conversionResult, null, "  ")
+        : some.join(" \n");
+  } else {
+    for (const [k, v] of Object.entries(value)) {
+      some.push(`${k.toLowerCase()}: ${v}`);
+    }
+    formattedSelectedValue =
+      current_type === EXAMPLE_TYPE_JSON
+        ? JSON.stringify(value, null, "  ")
+        : some.join("\n");
+    formattedResultValue = JSON.stringify(conversionResult, null, "  ");
+  }
 
   const selectedValueContainerID = `${id}-selected-object`;
   const resultValueContainerID = `${id}-converted-result`;
@@ -168,25 +194,84 @@ const bindClipboardListeners = () => {
   });
 };
 
-const bindSelectObjectEditListener = () => {
-  const editables = Array.from(
-    document.getElementsByClassName("selected-editable")
-  );
-  editables.forEach((editable) => {
-    editable.addEventListener("input", handleValueChange);
+const bindConvertButtonClickListener = () => {
+  const buttons = Array.from(document.getElementsByClassName("convert-button"));
+  buttons.forEach((button) => {
+    button.addEventListener("click", handleButtonClick);
   });
 };
 
-function handleValueChange(event) {
+const handleButtonClick = (event) => {
   const id = event.target.dataset.type;
-  const value = JSON.parse(event.target.textContent);
+  const editable = document.querySelectorAll(`code[data-type="${id}"]`)[0];
+  if (!editable) throw new Error(`Editable component not found by ID - ${id}`);
+
+  let value = {};
+  if (id === "uach-to-sua" && current_type === EXAMPLE_TYPE_PLAIN) {
+    editable.textContent.split("\n").forEach((line) => {
+      const [k, v] = line.split(":");
+      value[k] = v.replace(" ", "");
+    });
+  } else {
+    value = JSON.parse(editable.textContent);
+  }
+
   console.clear();
   drawConversionResults(value, id);
-}
+};
 
-const ce = document.querySelector("[contenteditable]");
-ce.addEventListener("paste", function (e) {
-  e.preventDefault();
-  const text = e.clipboardData.getData("text/plain");
-  document.execCommand("insertText", false, text);
+const editables = Array.from(
+  document.querySelectorAll("code[contenteditable]")
+);
+editables.forEach((edit) => {
+  edit.addEventListener("paste", function (e) {
+    e.preventDefault();
+    const text = e.clipboardData.getData("text/plain");
+    document.execCommand("insertHTML", false, text);
+  });
+});
+
+const typeSwitches = document.querySelectorAll(
+  `div[data-action="type-change"]`
+);
+
+typeSwitches.forEach((tswitch) => {
+  tswitch.addEventListener("click", (event) => {
+    const type = event.target.dataset.actionType;
+    const prevType = current_type;
+
+    if ([EXAMPLE_TYPE_JSON, EXAMPLE_TYPE_PLAIN].includes(type))
+      current_type = type;
+
+    typeSwitches.forEach((ts) => {
+      ts.classList.add("outlined");
+    });
+    tswitch.classList.remove("outlined");
+
+    const SUAToUACHValue = JSON.parse(
+      document.getElementById("sua-to-uach-selected-object").textContent
+    );
+
+    let UACHToSUAValue = {};
+
+    if (prevType === EXAMPLE_TYPE_PLAIN) {
+      let temp = document.getElementById(
+        "uach-to-sua-selected-object"
+      ).textContent;
+
+      temp.split("\n").forEach((line) => {
+        const [k, v] = line.split(":");
+        UACHToSUAValue[k] = v.replace(" ", "");
+      });
+    } else {
+      let temp = document.getElementById(
+        "uach-to-sua-selected-object"
+      ).textContent;
+
+      UACHToSUAValue = JSON.parse(temp);
+    }
+
+    drawConversionResults(SUAToUACHValue, "sua-to-uach");
+    drawConversionResults(UACHToSUAValue, "uach-to-sua");
+  });
 });

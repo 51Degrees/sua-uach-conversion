@@ -2,6 +2,7 @@
   <h2>UA-CH to SUA Conversion Playground</h2>
   <span>Select UA-CH Header Object</span>
   <br /><br />
+
   <div class="custom-select">
     <select
       class="example-select"
@@ -11,24 +12,39 @@
       <option value="{some: 'some'}" selected>some</option>
     </select>
   </div>
+
   <br /><br />
   <div class="inner">
     <div>
       <div class="header">
-        <span>UA-CH Header Map</span>
-        <div class="copy-button" data-target="uach-to-sua-selected-object">
+        <div class="convert-button" data-type="uach-to-sua">Convert</div>
+        <div class="title">
+          <span>UA-CH Header Map</span>
+          <span class="subtitle">in JSON format</span>
+        </div>
+        <div
+          class="default-button copy-button"
+          data-target="uach-to-sua-selected-object"
+        >
           <i class="icon download-icon"></i>Copy to clipboard
         </div>
       </div>
       <pre><code class="selected-editable"
-                 contenteditable="true"
+                 contenteditable
                  data-type="uach-to-sua"
                  id="uach-to-sua-selected-object"></code></pre>
     </div>
+
     <div>
       <div class="header">
-        <span>SUA Object</span>
-        <div class="copy-button" data-target="uach-to-sua-converted-result">
+        <div class="title">
+          <span>SUA Object</span>
+          <span class="subtitle">in JSON format</span>
+        </div>
+        <div
+          class="default-button copy-button"
+          data-target="uach-to-sua-converted-result"
+        >
           <i class="icon download-icon"></i>Copy to clipboard
         </div>
       </div>

@@ -1,5 +1,12 @@
 <div class="container">
   <h2>SUA to UA-CH Conversion Playground</h2>
+  <p>
+    Find out more with our
+    <a
+      href="https://51degrees.com/documentation/_device_detection__migration_guides__open_r_t_b_mappings.html"
+      >51Degrees OpenRTB documentation</a
+    >
+  </p>
   <span>Select SUA Example</span>
   <br /><br />
   <div class="custom-select">
@@ -14,20 +21,27 @@
   <br /><br />
   <div class="inner">
     <div>
+      <div class="convert-button" data-type="sua-to-uach">Convert</div>
       <div class="header">
-        <span>SUA Object</span>
+        <div class="title">
+          <span>SUA Object</span>
+          <span class="subtitle">in JSON format</span>
+        </div>
         <div class="copy-button" data-target="sua-to-uach-selected-object">
           <i class="icon download-icon"></i>Copy to clipboard
         </div>
       </div>
       <pre><code class="selected-editable"
-                 contenteditable="true"
+                 contenteditable
                  data-type="sua-to-uach"
                  id="sua-to-uach-selected-object"></code></pre>
     </div>
     <div>
       <div class="header">
-        <span>UA-CH Header Map</span>
+        <div class="title">
+          <span>UA-CH Header Map</span>
+          <span class="subtitle">in JSON format</span>
+        </div>
         <div class="copy-button" data-target="sua-to-uach-converted-result">
           <i class="icon download-icon"></i>Copy to clipboard
         </div>
