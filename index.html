@@ -16,93 +16,140 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css"
     />
-    <script type="module" crossorigin src="/sua-uach-conversion/assets/index-b2d6eddb.js"></script>
-    <link rel="stylesheet" href="/sua-uach-conversion/assets/index-0883c0cd.css">
+    <script type="module" crossorigin src="/sua-uach-conversion/assets/index-ab65fda1.js"></script>
+    <link rel="stylesheet" href="/sua-uach-conversion/assets/index-d86c4065.css">
   </head>
   <body>
     <main>
       <header>
         <div class="container">
-          <img src="https://51degrees.com/DesktopModules/FiftyOne/Distributor/Logo.ashx?utm_source=github&utm_medium=repository&utm_campaign=sua_uach_demo_page" alt="51Deg Logo" />
+          <img src="https://51degrees.com/DesktopModules/FiftyOne/Distributor/Logo.ashx?utm_source=github&utm_medium=repository&utm_campaign=sua_demo_page" alt="51Deg Logo" />
         </div>
       </header>
       <section class="playground">
-        <div class="container">
-          <h2>SUA to UA-CH Conversion Playground</h2>
-          <span>Select SUA Example</span>
-          <br /><br />
-          <div class="custom-select">
-            <select
-              class="example-select"
-              id="example-selector"
-              data-type="sua-to-uach"
-            >
-              <option value="{some: 'some'}" selected>some</option>
-            </select>
+        <div class="type-selector">
+          <div
+            class="default-button"
+            data-action-type="json"
+            data-action="type-change"
+          >
+            JSON HTTP Headers
           </div>
-          <br /><br />
-          <div class="inner">
-            <div>
-              <div class="header">
-                <span>SUA Object</span>
-                <div class="copy-button" data-target="sua-to-uach-selected-object">
-                  <i class="icon download-icon"></i>Copy to clipboard
-                </div>
-              </div>
-              <pre><code class="selected-editable"
-                         contenteditable="true"
-                         data-type="sua-to-uach"
-                         id="sua-to-uach-selected-object"></code></pre>
-            </div>
-            <div>
-              <div class="header">
-                <span>UA-CH Header Map</span>
-                <div class="copy-button" data-target="sua-to-uach-converted-result">
-                  <i class="icon download-icon"></i>Copy to clipboard
-                </div>
-              </div>
-              <pre><code id="sua-to-uach-converted-result"></code></pre>
-            </div>
+          <div
+            class="default-button outlined"
+            data-action-type="plain"
+            data-action="type-change"
+          >
+            Plain HTTP Headers
           </div>
         </div>
         <div class="container">
-          <h2>UA-CH to SUA Conversion Playground</h2>
-          <span>Select UA-CH Header Object</span>
-          <br /><br />
-          <div class="custom-select">
-            <select
-              class="example-select"
-              id="uach-to-sua-example-selector"
-              data-type="uach-to-sua"
-            >
-              <option value="{some: 'some'}" selected>some</option>
-            </select>
-          </div>
-          <br /><br />
-          <div class="inner">
-            <div>
-              <div class="header">
-                <span>UA-CH Header Map</span>
-                <div class="copy-button" data-target="uach-to-sua-selected-object">
-                  <i class="icon download-icon"></i>Copy to clipboard
-                </div>
-              </div>
-              <pre><code class="selected-editable"
-                         contenteditable="true"
-                         data-type="uach-to-sua"
-                         id="uach-to-sua-selected-object"></code></pre>
-            </div>
-            <div>
-              <div class="header">
+        <h2>SUA to UA-CH Conversion Playground</h2>
+        <p>
+          Find out more with our
+          <a
+            href="https://51degrees.com/documentation/_device_detection__migration_guides__open_r_t_b_mappings.html"
+            >51Degrees OpenRTB documentation</a
+          >
+        </p>
+        <span>Select SUA Example</span>
+        <br /><br />
+        <div class="custom-select">
+          <select
+            class="example-select"
+            id="example-selector"
+            data-type="sua-to-uach"
+          >
+            <option value="{some: 'some'}" selected>some</option>
+          </select>
+        </div>
+        <br /><br />
+        <div class="inner">
+          <div>
+            <div class="convert-button" data-type="sua-to-uach">Convert</div>
+            <div class="header">
+              <div class="title">
                 <span>SUA Object</span>
-                <div class="copy-button" data-target="uach-to-sua-converted-result">
-                  <i class="icon download-icon"></i>Copy to clipboard
-                </div>
+                <span class="subtitle">in JSON format</span>
               </div>
-              <pre><code id="uach-to-sua-converted-result"></code></pre>
+              <div class="copy-button" data-target="sua-to-uach-selected-object">
+                <i class="icon download-icon"></i>Copy to clipboard
+              </div>
             </div>
+            <pre><code class="selected-editable"
+                       contenteditable
+                       data-type="sua-to-uach"
+                       id="sua-to-uach-selected-object"></code></pre>
+          </div>
+          <div>
+            <div class="header">
+              <div class="title">
+                <span>UA-CH Header Map</span>
+                <span class="subtitle">in JSON format</span>
+              </div>
+              <div class="copy-button" data-target="sua-to-uach-converted-result">
+                <i class="icon download-icon"></i>Copy to clipboard
+              </div>
+            </div>
+            <pre><code id="sua-to-uach-converted-result"></code></pre>
           </div>
         </div>
+      </div>
+       <div class="container">
+        <h2>UA-CH to SUA Conversion Playground</h2>
+        <span>Select UA-CH Header Object</span>
+        <br /><br />
+      
+        <div class="custom-select">
+          <select
+            class="example-select"
+            id="uach-to-sua-example-selector"
+            data-type="uach-to-sua"
+          >
+            <option value="{some: 'some'}" selected>some</option>
+          </select>
+        </div>
+      
+        <br /><br />
+        <div class="inner">
+          <div>
+            <div class="header">
+              <div class="convert-button" data-type="uach-to-sua">Convert</div>
+              <div class="title">
+                <span>UA-CH Header Map</span>
+                <span class="subtitle">in JSON format</span>
+              </div>
+              <div
+                class="default-button copy-button"
+                data-target="uach-to-sua-selected-object"
+              >
+                <i class="icon download-icon"></i>Copy to clipboard
+              </div>
+            </div>
+            <pre><code class="selected-editable"
+                       contenteditable
+                       data-type="uach-to-sua"
+                       id="uach-to-sua-selected-object"></code></pre>
+          </div>
+      
+          <div>
+            <div class="header">
+              <div class="title">
+                <span>SUA Object</span>
+                <span class="subtitle">in JSON format</span>
+              </div>
+              <div
+                class="default-button copy-button"
+                data-target="uach-to-sua-converted-result"
+              >
+                <i class="icon download-icon"></i>Copy to clipboard
+              </div>
+            </div>
+            <pre><code id="uach-to-sua-converted-result"></code></pre>
+          </div>
+        </div>
+      </div>
+      
       </section>
       <footer>
         <div class="container">
