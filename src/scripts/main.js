@@ -278,17 +278,16 @@ typeSwitches.forEach((tswitch) => {
     let UACHToSUAValue = {};
 
     if (prevType === EXAMPLE_TYPE_PLAIN) {
-      let temp = document.getElementById(
-        "uach-to-sua-selected-object"
-      ).textContent;
-
-      temp.split("\n").forEach((line) => {
-        const [k, v] = line.split(":");
-        UACHToSUAValue[k] = v.replace(" ", "");
-      });
+      let temp = document.getElementById("uach-to-sua-selected-object").value;
+      temp
+        .split("\n")
+        .filter((el) => el.length > 0)
+        .forEach((line) => {
+          const [k, v] = line.split(":");
+          UACHToSUAValue[k] = v.replace(" ", "");
+        });
     } else {
       let temp = document.getElementById("uach-to-sua-selected-object").value;
-
       UACHToSUAValue = JSON.parse(temp);
     }
 

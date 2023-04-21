@@ -192,13 +192,8 @@ header {
 }
 
 .type-selector{
-  position: fixed;
-  top: 120px;
-  left: 10%;
-  flex-direction: column;
   display: flex;
-  row-gap: 15px;
-  margin-bottom: 20px;
+  column-gap: 15px;
 }
 
 footer {
