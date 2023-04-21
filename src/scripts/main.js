@@ -235,6 +235,11 @@ const typeSwitches = document.querySelectorAll(
   `div[data-action="type-change"]`
 );
 
+const subtitleLabels = {
+  plain: "in HTTP format",
+  json: "in JSON format",
+};
+
 typeSwitches.forEach((tswitch) => {
   tswitch.addEventListener("click", (event) => {
     const type = event.target.dataset.actionType;
@@ -242,6 +247,14 @@ typeSwitches.forEach((tswitch) => {
 
     if ([EXAMPLE_TYPE_JSON, EXAMPLE_TYPE_PLAIN].includes(type))
       current_type = type;
+
+    const subtitles = Array.from(
+      document.getElementsByClassName("sub-headers")
+    );
+
+    subtitles.forEach((subtitle) => {
+      subtitle.textContent = subtitleLabels[current_type];
+    });
 
     typeSwitches.forEach((ts) => {
       ts.classList.add("outlined");
