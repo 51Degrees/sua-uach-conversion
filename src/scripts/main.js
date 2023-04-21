@@ -215,10 +215,13 @@ const handleButtonClick = (event) => {
 
   let value = {};
   if (id === "uach-to-sua" && current_type === EXAMPLE_TYPE_PLAIN) {
-    editable.value.split("\n").forEach((line) => {
-      const [k, v] = line.split(":");
-      value[k] = v.replace(" ", "");
-    });
+    editable.value
+      .split("\n")
+      .filter((el) => el.length > 0)
+      .forEach((line) => {
+        const [k, v] = line.split(":");
+        value[k] = v.replace(" ", "");
+      });
   } else {
     value = JSON.parse(editable.value);
   }
