@@ -167,7 +167,14 @@ const drawConversionResults = (value, id) => {
 const changeTextContentOfContainer = (value, id) => {
   const container = document.getElementById(id);
   if (!container) throw new Error(`Container width ID ${id} does not exist`);
-  container.textContent = value;
+  if (container.tagName === "TEXTAREA") {
+    container.value = value;
+    container.style.height = 2 + container.scrollHeight + "px";
+    container.style.maxHeight = 2 + container.scrollHeight + "px";
+    container.style.minHeight = 2 + container.scrollHeight + "px";
+  } else {
+    container.textContent = value;
+  }
 };
 
 const convertValue = (value, id) => {
@@ -203,20 +210,20 @@ const bindConvertButtonClickListener = () => {
 
 const handleButtonClick = (event) => {
   const id = event.target.dataset.type;
-  const editable = document.querySelectorAll(`code[data-type="${id}"]`)[0];
+  const editable = document.querySelectorAll(`textarea[data-type="${id}"]`)[0];
   if (!editable) throw new Error(`Editable component not found by ID - ${id}`);
 
   let value = {};
   if (id === "uach-to-sua" && current_type === EXAMPLE_TYPE_PLAIN) {
-    editable.textContent.split("\n").forEach((line) => {
+    editable.value.split("\n").forEach((line) => {
       const [k, v] = line.split(":");
       value[k] = v.replace(" ", "");
     });
   } else {
-    value = JSON.parse(editable.textContent);
+    value = JSON.parse(editable.value);
   }
 
-  console.clear();
+  // console.clear();
   drawConversionResults(value, id);
 };
 
@@ -262,7 +269,7 @@ typeSwitches.forEach((tswitch) => {
     tswitch.classList.remove("outlined");
 
     const SUAToUACHValue = JSON.parse(
-      document.getElementById("sua-to-uach-selected-object").textContent
+      document.getElementById("sua-to-uach-selected-object").value
     );
 
     let UACHToSUAValue = {};
@@ -277,9 +284,7 @@ typeSwitches.forEach((tswitch) => {
         UACHToSUAValue[k] = v.replace(" ", "");
       });
     } else {
-      let temp = document.getElementById(
-        "uach-to-sua-selected-object"
-      ).textContent;
+      let temp = document.getElementById("uach-to-sua-selected-object").value;
 
       UACHToSUAValue = JSON.parse(temp);
     }
