@@ -9,7 +9,7 @@ const convertUACHtoSUA = (headers) => {
 
   const headerMap = Object.entries(headers).reduce(
     (accumulator, [key, value]) => {
-      accumulator[key.toLowerCase()] = value;
+      accumulator[key.toLowerCase().trim()] = value;
       return accumulator;
     },
     {}
@@ -44,8 +44,10 @@ const convertUACHtoSUA = (headers) => {
 
   if (headerMap["sec-ch-ua-mobile"])
     SUAObject["mobile"] = headerMap["sec-ch-ua-mobile"] === "?1" ? 1 : 0;
+
   if (headerMap["sec-ch-ua-arch"])
     SUAObject["architecture"] = headerMap["sec-ch-ua-arch"].replace(/"/g, "");
+
   if (headerMap["sec-ch-ua-bitness"])
     SUAObject["bitness"] = headerMap["sec-ch-ua-bitness"].replace(/"/g, "");
 
@@ -55,4 +57,4 @@ const convertUACHtoSUA = (headers) => {
   return SUAObject;
 };
 
-module.exports = convertUACHtoSUA;
+export default convertUACHtoSUA;
