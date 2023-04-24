@@ -84,6 +84,17 @@ const EXAMPLE_SUA = [
 const EXAMPLE_TYPE_JSON = "json";
 const EXAMPLE_TYPE_PLAIN = "plain";
 
+const OPERRTB_AVAILABLE_HEADERS = [
+  "sec-ch-ua",
+  "sec-ch-ua-full-version-list",
+  "sec-ch-ua-platform",
+  "sec-ch-ua-platform-version",
+  "sec-ch-ua-mobile",
+  "sec-ch-ua-arch",
+  "sec-ch-ua-bitness",
+  "sec-ch-ua-model",
+];
+
 let current_type = EXAMPLE_TYPE_JSON;
 
 const drawSelects = () => {
@@ -219,7 +230,11 @@ const handleButtonClick = (event) => {
       .split("\n")
       .filter((el) => el.length > 0)
       .forEach((line) => {
-        const [k, v] = line.split(":");
+        const tempLine = line.toLowerCase();
+        const k = OPERRTB_AVAILABLE_HEADERS.find((header) =>
+          tempLine.includes(header)
+        );
+        const [, v] = line.split(`${k}:`);
         value[k] = v.replace(" ", "");
       });
   } else {

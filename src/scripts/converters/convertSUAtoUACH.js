@@ -7,6 +7,8 @@ const convertSUAtoUACH = (SUAObj) => {
 
   const mappedHeaders = {};
 
+  console.log(SUAObj);
+
   const { browsers, platform, mobile, architecture, bitness, model } = SUAObj;
 
   if (browsers && browsers.length > 0) {
@@ -20,8 +22,10 @@ const convertSUAtoUACH = (SUAObj) => {
   }
 
   if (platform) {
-    mappedHeaders["Sec-CH-UA-Platform"] = `"${platform.brand}"`;
-    if (platform.version.length > 0)
+    if (platform.brand && platform.brand.length > 0)
+      mappedHeaders["Sec-CH-UA-Platform"] = `"${platform.brand}"`;
+
+    if (platform.version && platform.version.length > 0)
       mappedHeaders["Sec-CH-UA-Platform-Version"] = `"${platform.version.join(
         "."
       )}"`;
@@ -29,11 +33,14 @@ const convertSUAtoUACH = (SUAObj) => {
 
   mappedHeaders["Sec-CH-UA-Mobile"] = mobile ? "?1" : "?0";
 
-  if (architecture) mappedHeaders["Sec-CH-UA-Arch"] = `"${architecture}"`;
+  if (bitness && architecture.length > 0)
+    mappedHeaders["Sec-CH-UA-Arch"] = `"${architecture}"`;
 
-  if (bitness) mappedHeaders["Sec-CH-UA-Bitness"] = `"${bitness}"`;
+  if (bitness && bitness.length > 0)
+    mappedHeaders["Sec-CH-UA-Bitness"] = `"${bitness}"`;
 
-  if (model) mappedHeaders["Sec-CH-UA-Model"] = `"${model}"`;
+  if (model && model.length > 0)
+    mappedHeaders["Sec-CH-UA-Model"] = `"${model}"`;
 
   return mappedHeaders;
 };
