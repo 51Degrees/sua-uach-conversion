@@ -74,22 +74,75 @@ const HIGH_ENTROPY_OUTPUT = {
   bitness: "64",
 };
 
+const HIGH_ENTROPY_SOURCE_OUTPUT = {
+  browsers: [
+    { brand: "Chromium", version: ["112", "0", "5615", "49"] },
+    { brand: "Google Chrome", version: ["112", "0", "5615", "49"] },
+    { brand: "Not A;Brand", version: ["99", "0", "0", "0"] },
+  ],
+  platform: {
+    brand: "macOS",
+    version: ["13", "3", "1"],
+  },
+  mobile: 0,
+  architecture: "x86",
+  bitness: "64",
+  source: 2,
+};
+const LOW_ENTROPY_SOURCE_OUTPUT = {
+  browsers: [
+    { brand: "Chromium", version: ["112"] },
+    { brand: "Google Chrome", version: ["112"] },
+    { brand: "Not A;Brand", version: ["99"] },
+  ],
+  platform: {
+    brand: "macOS",
+    version: [],
+  },
+  mobile: 0,
+  source: 1,
+};
+
+const EMPTY_INPUT = {};
+const UNDEFINED_SOURCE_OUTPUT = {
+  source: 0,
+};
+
 describe("UACH Object to SUA", () => {
   test("Happy path", () => {
     const result = convertUACHtoSUA(BASIC_EXAMPLE);
     expect(result).not.toBeNull();
-    expect(result).toEqual(BASIC_OUTPUT);
+    expect(result).toEqual(expect.objectContaining(BASIC_OUTPUT));
   });
   test("Low entropy", () => {
     const result = convertUACHtoSUA(LOW_ENTROPY_EXAMPLE);
     expect(result).not.toBeNull();
-    expect(result).toEqual(LOW_ENTROPY_OUTPUT);
+    expect(result).toEqual(expect.objectContaining(LOW_ENTROPY_OUTPUT));
   });
   test("High entropy", () => {
     const result = convertUACHtoSUA(HIGH_ENTROPY_EXAMPLE);
     expect(result).not.toBeNull();
-    expect(result).toEqual(HIGH_ENTROPY_OUTPUT);
+    expect(result).toEqual(expect.objectContaining(HIGH_ENTROPY_OUTPUT));
   });
+
+  test("Undefined source", () => {
+    const result = convertUACHtoSUA(EMPTY_INPUT);
+    expect(result).not.toBeNull();
+    expect(result).toEqual(UNDEFINED_SOURCE_OUTPUT);
+  });
+
+  test("Low entropy source", () => {
+    const result = convertUACHtoSUA(LOW_ENTROPY_EXAMPLE);
+    expect(result).not.toBeNull();
+    expect(result).toEqual(LOW_ENTROPY_SOURCE_OUTPUT);
+  });
+
+  test("High entropy source", () => {
+    const result = convertUACHtoSUA(HIGH_ENTROPY_EXAMPLE);
+    expect(result).not.toBeNull();
+    expect(result).toEqual(HIGH_ENTROPY_SOURCE_OUTPUT);
+  });
+
   test("NULL check", () => {
     expect(convertUACHtoSUA).toThrowError(
       new Error("Header must be an valid header map.")
