@@ -12,9 +12,7 @@ const convertSUAtoUACH = (SUAObj) => {
   if (browsers && browsers.length > 0) {
     const brands = browsers
       .map((browser) => {
-        return `"${browser.brand.replace(/"/g, "")}";v="${browser.version
-          .join(".")
-          .replace(/"/g, "")}"`;
+        return `"${browser.brand}";v="${browser.version.join(".")}"`;
       })
       .join(", ");
     mappedHeaders["Sec-CH-UA"] = brands;
@@ -23,27 +21,24 @@ const convertSUAtoUACH = (SUAObj) => {
 
   if (platform) {
     if (platform.brand && platform.brand.length > 0)
-      mappedHeaders["Sec-CH-UA-Platform"] = `"${platform.brand.replace(
-        /"/g,
-        ""
-      )}"`;
+      mappedHeaders["Sec-CH-UA-Platform"] = `"${platform.brand}"`;
 
     if (platform.version && platform.version.length > 0)
-      mappedHeaders["Sec-CH-UA-Platform-Version"] = `"${platform.version
-        .join(".")
-        .replace(/"/g, "")}"`;
+      mappedHeaders["Sec-CH-UA-Platform-Version"] = `"${platform.version.join(
+        "."
+      )}"`;
   }
 
   mappedHeaders["Sec-CH-UA-Mobile"] = mobile ? "?1" : "?0";
 
   if (architecture && architecture.length > 0)
-    mappedHeaders["Sec-CH-UA-Arch"] = `"${architecture.replace(/"/g, "")}"`;
+    mappedHeaders["Sec-CH-UA-Arch"] = `"${architecture}"`;
 
   if (bitness && bitness.length > 0)
-    mappedHeaders["Sec-CH-UA-Bitness"] = `"${bitness.replace(/"/g, "")}"`;
+    mappedHeaders["Sec-CH-UA-Bitness"] = `"${bitness}"`;
 
   if (model && model.length > 0)
-    mappedHeaders["Sec-CH-UA-Model"] = `"${model.replace(/"/g, "")}"`;
+    mappedHeaders["Sec-CH-UA-Model"] = `"${model}"`;
 
   return mappedHeaders;
 };
