@@ -60,12 +60,12 @@ const cleanRawSUAAndValidate = (rawSUA) => {
   if (platform) filteredSUA["platform"] = cleanUpPlatform(platform);
 
   if (architecture && architecture.length > 0)
-    filteredSUA["architecture"] = cleanUpMisc(architecture);
+    filteredSUA["architecture"] = cleanUpString(architecture);
 
   if (bitness && bitness.length > 0)
-    filteredSUA["bitness"] = cleanUpMisc(bitness);
+    filteredSUA["bitness"] = cleanUpString(bitness);
 
-  if (model && model.length > 0) filteredSUA["model"] = cleanUpMisc(model);
+  if (model && model.length > 0) filteredSUA["model"] = cleanUpString(model);
 
   filteredSUA["mobile"] = mobile ? "?1" : "?0";
 
@@ -75,8 +75,8 @@ const cleanRawSUAAndValidate = (rawSUA) => {
 const cleanUpBrowsers = (browsers) => {
   return browsers.map((el) => {
     return {
-      brand: el.brand.replace(/"/g, ""),
-      version: el.version.map((v) => v.replace(/"/g, "")),
+      brand: cleanUpString(el.brand),
+      version: el.version.map((v) => cleanUpString(v)),
     };
   });
 };
@@ -84,13 +84,13 @@ const cleanUpPlatform = (platform) => {
   const clean = {};
   for (const property in platform) {
     clean[property] = Array.isArray(platform[property])
-      ? platform[property].map((v) => v.replace(/"/g, ""))
-      : platform[property].replace(/"/g, "");
+      ? platform[property].map((v) => cleanUpString(v))
+      : cleanUpString(platform[property]);
   }
   return clean;
 };
-const cleanUpMisc = (misc) => {
-  return misc.replace(/"/g, "");
+const cleanUpString = (string) => {
+  return string.replace(/"/g, "");
 };
 
 module.exports = convertSUAtoUACH;
