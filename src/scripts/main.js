@@ -238,7 +238,7 @@ const handleButtonClick = (event) => {
         value[k] = v.replace(" ", "");
       });
   } else {
-    value = JSON.parse(editable.value.replace(/\\"/g, ""));
+    value = JSON.parse(editable.value);
   }
 
   // console.clear();
