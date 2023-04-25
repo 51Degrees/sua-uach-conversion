@@ -57,4 +57,4 @@ const convertUACHtoSUA = (headers) => {
   return SUAObject;
 };
 
-export default convertUACHtoSUA;
+module.exports = convertUACHtoSUA;

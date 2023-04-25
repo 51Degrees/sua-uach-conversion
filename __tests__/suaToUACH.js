@@ -72,6 +72,21 @@ const HIGH_ENTROPY_OUTPUT = {
   "Sec-CH-UA-Platform-Version": `"13.3.1"`,
 };
 
+const HIGH_ENTROPY_DOUBLE_QUOTES_EXAMPLE = {
+  browsers: [
+    { brand: "Chromium", version: ["112", "0", "5615", "49"] },
+    { brand: "Google Chrome", version: ["112", "0", "5615", "49"] },
+    { brand: "Not A;Brand", version: ["99", "0", "0", "0"] },
+  ],
+  platform: {
+    brand: '"macOS"',
+    version: ["13", "3", "1"],
+  },
+  mobile: 0,
+  architecture: "x86",
+  bitness: '"64"',
+};
+
 describe("SUA Object to UACH", () => {
   test("Happy path", () => {
     const result = convertSUAtoUACH(BASIC_INPUT);
@@ -87,6 +102,11 @@ describe("SUA Object to UACH", () => {
 
   test("High entropy", () => {
     const result = convertSUAtoUACH(HIGH_ENTROPY_INPUT);
+    expect(result).not.toBeNull();
+    expect(result).toEqual(HIGH_ENTROPY_OUTPUT);
+  });
+  test("High entropy double quotes", () => {
+    const result = convertSUAtoUACH(HIGH_ENTROPY_DOUBLE_QUOTES_EXAMPLE);
     expect(result).not.toBeNull();
     expect(result).toEqual(HIGH_ENTROPY_OUTPUT);
   });
