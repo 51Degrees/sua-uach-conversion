@@ -5,9 +5,24 @@ const convertUACHtoSUA = (headers) => {
     ? headerMap["sec-ch-ua-full-version-list"]
     : headerMap["sec-ch-ua"];
 
-  const matches = brands.split(", ");
+  let matches;
+
+  if (brands) matches = brands.split(", ");
 
   const SUAObject = {};
+
+  SUAObject["source"] = 0;
+
+  if (headerMap["sec-ch-ua-mobile"] || headerMap["sec-ch-ua-platform"])
+    SUAObject["source"] = 1;
+
+  if (
+    headerMap["sec-ch-ua-model"] ||
+    headerMap["sec-ch-ua-platform-version"] ||
+    headerMap["sec-ch-ua-platform-arch"] ||
+    headerMap["sec-ch-ua-platform-bitness"]
+  )
+    SUAObject["source"] = 2;
 
   if (matches)
     SUAObject["browsers"] = matches.map((match) => {
