@@ -1,9 +1,42 @@
-# SUA to UA-CH Conversion Routines
+# 51Degrees User-Agent Client Hints conversion for JavaScript
+
+<img src=".github/images/logo.png" alt="51Degrees" title="Data rewards the curious" width="120">
+
+Convert between Structured User Agent (SUA), the device information object used by OpenRTB, and User-Agent Client Hints (UA-CH) header maps. These JavaScript routines run locally and prepare input for Device Detection services.
+
+## Install
+
+There is no package to install. Import the functions from `src`, as in the example below. To install the test dependencies and run the tests:
+
+```sh
+yarn
+yarn test
+```
+
+Try the [User-Agent tester](https://51degrees.com/developers/user-agent-tester?utm_source=github&utm_medium=readme&utm_campaign=sua-uach-conversion&utm_content=readme&utm_term=install).
+
+### Example
+
+```js
+import convertUACHtoSUA from "./src/convertUACHtoSUA.js";
+const uach = {
+  'sec-ch-ua-arch': '"x86"',
+  'sec-ch-ua-bitness': '"64"',
+  'sec-ch-ua-full-version-list': '"Google Chrome";v="111.0.5563.146", "Not(A:Brand";v="8.0.0.0", "Chromium";v="111.0.5563.146"',
+  'sec-ch-ua-mobile': '?0',
+  'sec-ch-ua-model':'',
+  'sec-ch-ua-platform': '"macOS"',
+  'sec-ch-ua-platform-version': '"13.3.0"'
+}
+
+let sua = convertUACHtoSUA(uach)
+console.log(sua)
+```
 
 ## Introduction
 
 Structured User Agent or SUA for short has been introduced by IAB in [OpenRTB v.2.6 spec](https://iabtechlab.com/wp-content/uploads/2022/04/OpenRTB-2-6_FINAL.pdf).
-It contains the information passed as part of the User-Agent Client Hint HTTP headers, or that otherwise can be obtained from the NavigatorUAData.
+It contains the information passed as part of the User-Agent Client Hints HTTP headers, or that otherwise can be obtained from the NavigatorUAData.
 
 The playground page is available [here](https://51degrees.github.io/sua-uach-conversion). 
 
@@ -87,7 +120,7 @@ node example_uach_sua.js
 
 ## Tests
 
-You can run tests by executing: 
+Install the test dependencies and run the tests: 
 ```sh
 yarn
 yarn test
@@ -110,3 +143,9 @@ distributed under the License is distributed on an "AS IS" BASIS,
 WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 See the License for the specific language governing permissions and
 limitations under the License.
+
+## Find out more
+
+- [Device Detection](https://51degrees.com/device-detection?utm_source=github&utm_medium=readme&utm_campaign=sua-uach-conversion&utm_content=readme&utm_term=find-out-more)
+- [Documentation](https://51degrees.com/documentation/index.html?utm_source=github&utm_medium=readme&utm_campaign=sua-uach-conversion&utm_content=readme&utm_term=find-out-more)
+- https://github.com/51Degrees/51degrees-cxx
